@@ -11,7 +11,6 @@
 - 预估阅读时长：约 16 分钟
 - 生成时间：2025-11-08 19:47:29
 - 覆盖时长：01:00:39
-- 识别说话人：A, B, C
 
 ## 模型总结
 ## 摘要总结
@@ -30,21 +29,21 @@
 
 ### Context engineering 的常见主题（00:03:45 - 00:10:05）
 **Lance**：
-- Offloading（上下文外置）（00:03:56 - 00:05:11）：不必把所有上下文都留在对话消息里。把大 payload（如网页搜索结果）落盘到文件系统，只回传最小引用信息（比如路径），需要时再取。我们在 Deep Agents、OpenDeep Research、Claude Code 等项目里都大量看到这个做法。
-- Reducing（缩减）（00:05:13 - 00:06:30）：与 offloading 类似，但通过“总结/压缩”。可总结工具输出、剪枝旧的 tool calls（Claude 4.5 甚至原生支持），或在占用比例到阈值时进行历史 compaction（Claude Code 的 compaction），Cognition 也谈到 agent-to-agent handoff 时的 summarization。
+- ==Offloading==（上下文外置）（00:03:56 - 00:05:11）：不必把所有上下文都留在对话消息里。把大 payload（如网页搜索结果）落盘到文件系统，只回传最小引用信息（比如路径），需要时再取。我们在 Deep Agents、OpenDeep Research、Claude Code 等项目里都大量看到这个做法。
+- ==Reducing==（缩减）（00:05:13 - 00:06:30）：与 offloading 类似，但通过“总结/压缩”。可总结工具输出、剪枝旧的 tool calls（Claude 4.5 甚至原生支持），或在占用比例到阈值时进行历史 compaction（Claude Code 的 compaction），Cognition 也谈到 agent-to-agent handoff 时的 summarization。
 - Retrieving（检索）（00:06:32 - 00:07:16）：两派并存——**索引+语义搜索 vs. 文件系统+简单搜索（glob/grep）**。两者都有效，各有利弊，Q&A 可再聊。无论如何，按需检索是构建有效 agent 的核心。
-- Isolation（隔离）（00:07:17 - 00:08:12）：多 agent 分治，每个子 agent 有独立上下文，利于“关注点分离”。从 Manus 宽代理到我们的 Deep Agents、OpenDeep Research、Claude 的研究都在用 sub-agents。
+- ==Isolation==（隔离）（00:07:17 - 00:08:12）：多 agent 分治，每个子 agent 有独立上下文，利于“关注点分离”。从 Manus 宽代理到我们的 Deep Agents、OpenDeep Research、Claude 的研究都在用 sub-agents。
 - Caching（缓存）（00:08:05 - 00:08:12）：Manus 在上下文缓存上的实践很有意思，稍后请 Pete 展开。
-接着以我们的 OpenDeep Research 开源实现为例（00:08:14 - 00:10:05）：三阶段——scope 研究、multi-agent 研究、single-shot 写作。我们会把“研究简报/计划”offload（放在 LangGraph state 或文件系统），需要时再拉回到消息队列尾部；对“高 token 搜索输出”在研究期做总结；研究中也做 sub-agent 的上下文隔离。总之就是围绕 offload / reduce / retrieve / isolate / cache 这几大主题在不同项目里的组合拳。现在把时间交给 Pete。
+接着以我们的 OpenDeep Research 开源实现为例（00:08:14 - 00:10:05）：三阶段——scope 研究、multi-agent 研究、single-shot 写作。我们会把“研究简报/计划”offload（放在 LangGraph state 或文件系统），需要时再拉回到消息队列尾部；==对“大量 token 搜索输出”在研究期做总结；研究中也做 sub-agent 的上下文隔离==。总之就是围绕 offload / reduce / retrieve / isolate / cache 这几大主题在不同项目里的组合拳。现在把时间交给 Pete。
 
 ### 为什么需要 context engineering（00:10:26 - 00:15:00）
 **Pete（Manus）**：我想谈谈为什么要做“context engineering”，尤其当微调/后训练变得容易时。我的前一家公司从零训练过自家 LM 做开放信息抽取/知识图谱/语义搜索，痛点是产品创新速度被训练-评估周期卡死（1-2 周一轮），而且在没找到 PMF 前，优化的基准不一定对产品有意义。对初创企业而言，应该尽量依赖通用模型+context engineering，而不是过早做“专用模型”。后来我们也尝试过基于强 base model 做 RL/后训练，但这又是个陷阱：RL 需要固定 action space、明确 reward 并大量 on-policy rollouts；而 AI/agent 处在强变动期，比如 MCP 的发布就把 Manus 从“紧凑静态动作集”推向“无限可扩展”的开放动作空间——这类开放域优化极难。==除非你要重做一遍模型公司已经做过的基础层，否则请明确边界：现在“context engineering”是“应用/模型”的最清晰、最务实的分界线==。够了，下面上技术。
 
 ### Context reduction：Compaction vs. Summarization（00:15:03 - 00:19:22）
 **Pete**：我们把“缩减”分成两类：compaction（紧凑化，可逆）与 summarization（总结，不可逆）。
-- Compaction：每个工具调用及结果都有 full/compact 两种格式。举例：写文件工具结果里有 path 和 content 字段；返回后文件已存在，因此 compact 里可以安全丢掉很长的 content，只保留 path；agent 需要时再按 path 读取。这样信息没有丢，只是外置。可逆性很关键：agent 的后续推理常依赖早先的动作/观测，无法预先知道哪一步会在 10 步后变关键。
+- Compaction：每个工具调用及结果都有 ==full/compact 两种格式==。举例：写文件工具结果里有 path 和 content 字段；返回后文件已存在，因此 compact 里可以安全丢掉很长的 content，只保留 path；agent 需要时再按 path 读取（read(path)工具？）。这样信息没有丢，只是外置。可逆性很关键：agent 的后续推理常依赖早先的动作/观测，无法预先知道哪一步会在 10 步后变关键。
 - 但 compaction 终究有天花板，于是我们在触顶前结合 summarization，但会先把关键上下文 offload 成文件，甚至把“预摘要上下文”整体以 log/text 存盘，模型可用 glob/grep 取回。差异在于：**compaction 可逆、summarization 不可逆**，两者都降长度但行为不同。
-- 我们会维护若干阈值：模型硬上限（如 1M tokens），以及更早出现的“context rot”阈值（常见在 128K-200K），一旦接近 rot 就触发缩减，且先做 compaction 而不是 summarization。compaction 不等于全史压缩，我们会优先“把最老 50% 的 tool calls 紧凑化，保留最近的完整细节”，给模型留“新鲜的 few-shot 工具用例”，否则模型会学坏（输出缺字段的“紧凑格式”）。
+- 我们会维护若干阈值：模型硬上限（如 1M tokens），以及更早出现的“context rot”阈值（常见在 128K-200K），一旦接近 rot 就触发缩减，且先做 compaction 而不是 summarization。compaction 不等于全史压缩，我们会优先“把最老 50% 的 tool calls compaction，保留最近的完整细节”，给模型留“新鲜的 few-shot 工具用例”，否则模型会学坏（输出缺字段的“紧凑格式”）。
 - 多轮 compaction 后如果释放空间仍然有限，就改做 summarization。但注意：总结时使用“完整版本”数据，不用 compact 版本；并且保留“最后几次工具调用与结果”的完整细节，帮助模型“续写”保持风格与连贯性。
 
 ### Context isolation：沟通 vs. 共享记忆（00:19:22 - 00:22:15）
