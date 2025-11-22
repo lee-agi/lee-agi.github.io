@@ -3,9 +3,7 @@
 ---
 
 
-# any2summary
-
-`any2summary` 是一个面向播客、视频与网页文章的命令行工具，可在本地一次性完成“下载/转写 → 说话人分离 → 摘要导出”整条链路。CLI 默认输出结构化 JSON，并在启用 Azure 摘要后生成带封面、目录与时间轴表格的 Markdown，帮助你把长内容快速同步到知识库或笔记工具，大幅提高知识获取效率。
+[`any2summary`](https://github.com/lee-agi/any2summary) 是一个面向播客、视频与网页文章的命令行工具，可在本地一次性完成“下载/转写 → 说话人分离 → 摘要导出”整条链路。CLI 默认输出结构化 JSON，并在启用 Azure 摘要后生成带封面、目录与时间轴表格的 Markdown，帮助你把长内容快速同步到知识库或笔记工具，大幅提高知识获取效率。
 
 > 一键安装`pip install any2summary`，然后`.env`配置一下Azure OpenAI就可以使用了。
 
@@ -195,3 +193,8 @@ pytest test/ -q  # 回归与集成用例
 - **音频过长**：工具会自动切分并重试；若缓存中存在旧的超长 WAV，可先执行 `--clean-cache`。
 - **文章模式摘要为空**：请确认 `--azure-summary` 已启用且文章可正常访问；必要时提供自定义 `--article-summary-prompt-file`。
 - **本地磁盘占用高**：定期清理 `ANY2SUMMARY_CACHE_DIR`，或结合 `--clean-cache` 针对性删除历史任务。
+
+## 欢迎交流与合作
+目前主要兴趣是探索agent的落地，想进一步交流可加微信（cleezhang），一些[自我介绍](https://lee-agi.github.io/85ed64eda0/)。
+
+> 本文发表于 2025-11-22_周六。
