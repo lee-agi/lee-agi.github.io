@@ -30,28 +30,28 @@
 
 - 开源 vs 闭源（Open vs. Closed Source Models）
   - 闭源仍承载多数 token，但 OSS 稳步增长，至 2025 年末约达三成；关键开源发布（DeepSeek V3、Kimi K2、GPT-OSS）引发持久增长而非昙花一现。
-  - 中国开源模型的份额从可忽略上升到部分周接近 30%，全年周均约 13%；与 RoW OSS（13.7%）相比，闭源 RoW 仍最大（约 70%）。这由高频迭代与密集发布驱动。
-  - 开源市场从 DeepSeek 高度集中转为多元化竞争：到 2025 年末，无单一模型占 OSS token 超 25%，5–7 个模型持有可观份额，呈碎片化格局。
-  - 模型尺寸结构演进：小模型（<15B）整体使用份额下滑；中模型（15B–70B）自 Qwen2.5 Coder 32B 起“找到 model–market fit”；大模型（≥70B）呈“多极化”，用户主动对比多款开源大模型。
+  - 中国开源模型的份额从可忽略上升到==部分周接近 30%==，全年周均约 13%；与 RoW OSS（13.7%）相比，==闭源 RoW 仍最大（约 70%）==。这由高频迭代与密集发布驱动。
+  - 开源市场从 DeepSeek 高度集中转为多元化竞争：到 ==2025 年末，无单一模型占 OSS token 超 25%，5–7 个模型持有可观份额，呈碎片化格局==。
+  - 模型尺寸结构演进：==小模型（<15B）整体使用份额下滑；中模型（15B–70B）自 Qwen2.5 Coder 32B 起“找到 model–market fit”；大模型（≥70B）呈“多极化”==，用户主动对比多款开源大模型。
 
 - 类别与使用结构（Categories）
-  - 开源使用以 Roleplay 与 Programming 为双核：Roleplay 超过 50% 的 OSS token，Programming 居次。
+  - 开源使用以 Roleplay 与 Programming 为双核：==Roleplay 超过 50% 的 OSS token==，Programming 居次。
   - 中国 OSS 的类别结构更偏技术：Roleplay ≈33%，Programming+Technology ≈39% 并成多数，反映 Qwen、DeepSeek 等在代码与基础设施类任务上提升。
-  - Roleplay 类别在 2025 年内从早期闭源主导（≈70%）转向开源与闭源几乎均分（RoW OSS ≈43%，Closed ≈42%），显示创意对话领域竞争加剧。
-  - 全体模型视角，Programming 在 2025 年稳步上升至近期超过 50% 的总 token 份额；细分供给格局中，Anthropic 的 Claude 系列长期占比 >60% 编程支出，但在 2025-11 首次跌破 60%，OpenAI 自 2% 升至约 8%，Google 稳定在约 15%，MiniMax 等开源新锐上升明显。
-  - 内部结构：Roleplay 近 60% 流量为 Games/Roleplaying Games，其次 Writers Resources 与 Adult；Programming 中“Programming/Other”占比高，Development Tools（26.4%）显示结构化工作流尚在成形。翻译、科学等类目的内部结构较平坦，而健康、法律、金融更分散。
+  - Roleplay 类别在 2025 年内从早期闭源主导（≈70%）==转向开源与闭源几乎均分（RoW OSS ≈43%，Closed ≈42%）==，显示创意对话领域竞争加剧。
+  - 全体模型视角，==Programming 在 2025 年稳步上升至近期超过 50% 的总 token 份额；细分供给格局中，Anthropic 的 Claude 系列长期占比 >60% 编程支出，但在 2025-11 首次跌破 60%，OpenAI 自 2% 升至约 8%，Google 稳定在约 15%==，MiniMax 等开源新锐上升明显。
+  - 内部结构：==Roleplay 近 60% 流量为 Games/Roleplaying Games，其次 Writers Resources 与 Adult==；Programming 中“Programming/Other”占比高，Development Tools（26.4%）显示结构化工作流尚在成形。翻译、科学等类目的内部结构较平坦，而健康、法律、金融更分散。
 
 - Agentic Inference 的崛起（The Rise of Agentic Inference）
   - 2025 年推理导向模型的 token 份额快速上升，现已超过 50%；供给端（GPT-5、Claude 4.5、Gemini 3）与需求端（偏好多步逻辑、状态管理与 agent 工作流）双向驱动。
-  - 领先推理流量模型轮动加快：近期 xAI 的 Grok Code Fast 1 超越 Gemini 2.5 Pro；开放模型如 gpt-oss-120b 仍被大量调用。
+  - 领先推理流量模型轮动加快：近期 ==xAI 的 Grok Code Fast 1== 超越 Gemini 2.5 Pro；开放模型如 gpt-oss-120b 仍被大量调用。
   - Tool-calling 使用向上趋势明显（除去 2025 年 5 月的大户异常峰值）；支持可靠工具协议的模型更易获企业采用。
-  - 平均 prompt token 从约 1.5K 升至 6K+，completion 从约 150 升至 400；平均序列长度 20 个月内从 <2K 升至 >5.4K。
+  - ==平均 prompt token 从约 1.5K 升至 6K+，completion 从约 150 升至 400==；平均序列长度 20 个月内从 <2K 升至 >5.4K。
   - 编程请求主导了长上下文增长，常超过 20K 输入 token；长序列是高复杂度、嵌入式 agent 工作流的“签名”。
-  - 运营含义：默认能力门槛提高，延迟、工具处理、上下文与鲁棒性成为关键；推断平台需支撑长会话、执行轨迹与敏感权限集成。
+  - 运营含义：默认能力门槛提高，==延迟、工具处理、上下文与鲁棒性成为关键==；推断平台需支撑长会话、执行轨迹与敏感权限集成。
   - 强判断：**“agentic inference”将超过（若未已超过）人类推断份额**。
 
 - 地理与语言（Geography and Languages）
-  - 北美仍最大但多数时期已<50%；欧洲稳定贡献；亚洲份额由≈13% 翻倍至≈31%，既是供给者亦是快速增长的消费者。
+  - ==北美仍最大但多数时期已<50%==；==欧洲稳定贡献（21%）；亚洲份额由≈13% 翻倍至≈31%==，既是供给者亦是快速增长的消费者。
   - 英语占 80%+ token；简体中文≈5%；随中国开源模型崛起，多语支持的重要性上升。
 
 - 留存与“Cinderella Glass Slipper effect”（Retention）
@@ -65,18 +65,18 @@
 - 成本与使用动态（Cost vs. Usage Dynamics）
   - 类别层面 log–log 分布，以 $0.73/1M tokens 为中位数垂线划分四象限：Premium Workloads（高成本高用量，如 Technology 与 Science）、Mass-Market Volume Drivers（高用量低/中成本，如 Programming 与 Roleplay 与 Science）、Specialized Experts（高成本低用量，如 Finance/Academia/Health/Marketing）、Niche Utilities（低成本低用量，如 Translation/Legal/Trivia）。
   - **Technology 是显著离群点：单位成本最高且使用量高**，可能由极高价值或极高供给成本驱动（或兼而有之）。
-  - 模型层面呈弱价格弹性：价格每降 10%，使用量仅增约 0.5–0.7%；闭源（OpenAI、Anthropic）占高成本高用量象限，开源（DeepSeek、Mistral、Qwen）占低成本高用量象限。
+  - 模型层面呈弱价格弹性：==价格每降 10%，使用量仅增约 0.5–0.7%==；**闭源（OpenAI、Anthropic）占高成本高用量象限，开源（DeepSeek、Mistral、Qwen）占低成本高用量象限。**
   - 四类作者 archetypes：Premium leaders（如 Claude Sonnet 3.7/4，≈$2/1M 仍高使用）、Efficient giants（如 Gemini 2.0 Flash、DeepSeek V3 0324，<$0.40/1M 且高使用）、Long tail models（几美分/1M 但使用低）、Premium specialists（如 GPT-4/GPT-5 Pro，≈$35/1M 低用量高价值）。
-  - 观察：宏观看需求不弹性，但微观分层显著；有**Jevons paradox**迹象（降价带来更大量总消耗）；质量/可靠性常胜于成本；单“便宜”不足以驱动深集成。
+  - 观察：宏观看需求不弹性，但微观分层显著；有**Jevons paradox**迹象（降价带来更大量总消耗）；==质量/可靠性常胜于成本==；单“便宜”不足以驱动深集成。
   - 策略：分层产品（Flash vs Pro）按任务路由；聚焦“每次成功的成本”（cost-per-successful-outcome）胜过“每 token 成本”；市场未被商品化，差异化（延迟、上下文、稳定性）仍是优势来源。
 
-- 供给侧画像（Provider Profiles）
-  - Anthropic：Programming+Technology 超 80%，定位复杂推理、编码与结构化任务。
-  - Google：用途更分散，Translation、Science、Technology、General Knowledge 比重较高，编程占比在 2025 年末降至≈18%。
-  - xAI：长期 Programming >80%；至 11 月后分布拓宽，与免费分发引入的非开发者流量相关。
-  - OpenAI：2025 年初 Science >50%，年末降至 <15%；Programming 与 Technology 各≈29%，更贴近面向结构化高价值任务。
-  - DeepSeek：以 Roleplay、休闲聊天、娱乐为主，占比常 >2/3；编程占比夏末缓升。
-  - Qwen：Programming 长期 40–60%，周波动更高，9–10 月 Roleplay 有一波上升，11 月回落。
+- ==供给侧画像（Provider Profiles）==
+  - ==Anthropic：Programming+Technology 超 80%，定位复杂推理、编码与结构化任务。==
+  - ==Google：用途更分散，Translation、Science、Technology、General Knowledge 比重较高，编程占比在 2025 年末降至≈18%。==
+  - ==xAI：长期 Programming >80%；至 11 月后分布拓宽，与免费分发引入的非开发者流量相关。==
+  - ==OpenAI：2025 年初 Science >50%，年末降至 <15%；Programming 与 Technology 各≈29%，更贴近面向结构化高价值任务。==
+  - ==DeepSeek：以 Roleplay、休闲聊天、娱乐为主，占比常 >2/3；编程占比夏末缓升。==
+  - ==Qwen：Programming 长期 40–60%，周波动更高，9–10 月 Roleplay 有一波上升，11 月回落。==
 
 - 讨论与结论
   - 多模型生态将长期存在，无单一模型通吃；选择受能力、延迟、成本与信任多轴影响。
