@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/010-outbox/1/ai-coding-claude-code-codex-2025-m10/","tags":["#LLM"]}
+{"dg-publish":true,"permalink":"/010-outbox/1/ai-coding-claude-code-codex-2025-m10/","tags":["LLM"]}
 ---
 
 
@@ -19,7 +19,9 @@
 4. **施加约束 (Constraints)**：`Only use libraries present in requirements.txt. The solution must be compatible with Python 3.9+. Maintain the existing public API signature to avoid breaking changes.`
 5. **TDD (Methodology)**：`First, write a failing benchmark test that reproduces the bottleneck. Then, implement the async changes. Finally, ensure all existing unit tests and the new benchmark pass.
 6. 一些技巧：
-	1. 加入 `think`, `think hard`, `think harder`, `ultrathink` 等关键词，可以强制 AI 分配更多资源进行规划
+	1. 难任务的链路：
+		1. Plan -> Design -> Task拆分 -> Implement
+		2. 加入 `think`, `think hard`, `think harder`, `ultrathink` 等关键词，可以强制 AI 分配更多资源进行规划
 	2.  `Shift + Tab` 切换到计划模式（Plan Mode），强制 AI 在动手前提交一份详细的行动计划。
 ### 2. 主动上下文管理
 1. /clear：清空历史对话。/compact：压缩之前的context，并开启新的context
